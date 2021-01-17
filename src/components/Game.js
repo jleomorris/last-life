@@ -28,8 +28,8 @@ const StyledGame = styled(motion.div)`
   text-align: center;
   border-radius: 1rem;
   overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(5px);
+  /* background-color: rgba(255, 255, 255, 0.15); */
+  /* backdrop-filter: blur(5px); */
 
   img {
     width: 100%;
