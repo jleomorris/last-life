@@ -36,6 +36,14 @@ const StyledGame = styled(motion.div)`
   /* background-color: rgba(255, 255, 255, 0.15); */
   /* backdrop-filter: blur(5px); */
 
+  a {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+
   img {
     width: 100%;
     height: 40vh;

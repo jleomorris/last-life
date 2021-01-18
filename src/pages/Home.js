@@ -172,7 +172,7 @@ const GameList = styled(motion.div)`
   padding: 0rem 5rem;
 
   h2 {
-    padding: 5rem 0rem;
+    padding: 2rem 0rem;
   }
 `;
 
@@ -181,6 +181,7 @@ const Games = styled(motion.div)`
   display: grid;
   grid-column-gap: 3rem;
   grid-row-gap: 5rem;
+  margin: 2rem 0rem;
 `;
 
 const Banner = styled(motion.div)`

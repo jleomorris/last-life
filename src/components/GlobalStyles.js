@@ -26,6 +26,13 @@ const GlobalStyles = createGlobalStyle`
     width: 100%;
   }
 
+  h1 {
+    font-size: 6rem;
+    font-family: 'Abril Fatface', cursive;
+    font-weight: lighter;
+    color: white;
+  }
+
   h2 {
     font-size: 3rem;
     font-family: 'Abril Fatface', cursive;
