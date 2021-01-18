@@ -15,6 +15,8 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 // React router
 import { useLocation } from "react-router-dom";
+//Images
+import bannerImage from "../img/pexels-photo-4842496.jpeg";
 
 const Home = () => {
   // Get current location
@@ -26,6 +28,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // Set 10 games per section and card size large by default
     dispatch(loadGames(10));
     dispatch(setLargeCards());
   }, [dispatch]);
@@ -34,7 +37,7 @@ const Home = () => {
     dispatch(loadGames(number));
   };
 
-  const CardSizeHandler = (size) => {
+  const cardSizeHandler = (size) => {
     if (size === "small") dispatch(setSmallCards());
     if (size === "medium") dispatch(setMediumCards());
     if (size === "large") dispatch(setLargeCards());
@@ -42,112 +45,180 @@ const Home = () => {
 
   //Get data back
   const { popular, newGames, upcoming } = useSelector((state) => state.games);
-
   // Card size variables
   const { isSmallSelected, isMediumSelected, isLargeSelected } = useSelector(
     (state) => state.cardSizes
   );
 
-  console.log(isSmallSelected, isMediumSelected, isLargeSelected);
-
   return (
-    <GameList>
-      {pathId && <GameDetail />}
-      <h2>Upcoming games</h2>
-      <div className="view-container">
-        <h3>View</h3>
-        <button onClick={() => filterhandler(3)}>3</button>
-        <button onClick={() => filterhandler(5)}>5</button>
-        <button onClick={() => filterhandler(10)}>10</button>
-        <button onClick={() => filterhandler(20)}>20</button>
-        <button onClick={() => filterhandler(30)}>30</button>
-      </div>
-      <div className="card-toggle-container">
-        <h3>Card size</h3>
-        <button
-          onClick={() => CardSizeHandler("small")}
-          className={`${isSmallSelected ? "card-highlighted" : ""}`}
+    <>
+      <Banner>
+        <img src={bannerImage} alt="banner-image" />
+        <h1>RawgFind</h1>
+        <div className="filters">
+          <div className="view-container">
+            <h3>View</h3>
+            <button
+              className={`${upcoming.length === 3 ? "card-highlighted" : ""}`}
+              onClick={() => filterhandler(3)}
+            >
+              3
+            </button>
+            <button
+              className={`${upcoming.length === 5 ? "card-highlighted" : ""}`}
+              onClick={() => filterhandler(5)}
+            >
+              5
+            </button>
+            <button
+              className={`${upcoming.length === 10 ? "card-highlighted" : ""}`}
+              onClick={() => filterhandler(10)}
+            >
+              10
+            </button>
+            <button
+              className={`${upcoming.length === 20 ? "card-highlighted" : ""}`}
+              onClick={() => filterhandler(20)}
+            >
+              20
+            </button>
+            <button
+              className={`${upcoming.length === 30 ? "card-highlighted" : ""}`}
+              onClick={() => filterhandler(30)}
+            >
+              30
+            </button>
+          </div>
+          <div className="card-toggle-container">
+            <h3>Card size</h3>
+            <button
+              onClick={() => cardSizeHandler("small")}
+              className={`${isSmallSelected ? "card-highlighted" : ""}`}
+            >
+              S
+            </button>
+            <button
+              onClick={() => cardSizeHandler("medium")}
+              className={`${isMediumSelected ? "card-highlighted" : ""}`}
+            >
+              M
+            </button>
+            <button
+              onClick={() => cardSizeHandler("large")}
+              className={`${isLargeSelected ? "card-highlighted" : ""}`}
+            >
+              L
+            </button>
+          </div>
+        </div>
+      </Banner>
+      <GameList>
+        {pathId && <GameDetail />}
+        <h2>Upcoming games</h2>
+        <Games
+          className={`${isSmallSelected ? "small-cards" : ""}${
+            isMediumSelected ? "medium-cards" : ""
+          }${isLargeSelected ? "large-cards" : ""}`}
         >
-          S
-        </button>
-        <button
-          onClick={() => CardSizeHandler("medium")}
-          className={`${isMediumSelected ? "card-highlighted" : ""}`}
+          {upcoming.map((game) => (
+            <Game
+              name={game.name}
+              released={game.released}
+              id={game.id}
+              image={game.background_image}
+              key={game.id}
+            />
+          ))}
+        </Games>
+        <h2>Popular games</h2>
+        <Games
+          className={`${isSmallSelected ? "small-cards" : ""}${
+            isMediumSelected ? "medium-cards" : ""
+          }${isLargeSelected ? "large-cards" : ""}`}
         >
-          M
-        </button>
-        <button
-          onClick={() => CardSizeHandler("large")}
-          className={`${isLargeSelected ? "card-highlighted" : ""}`}
+          {popular.map((game) => (
+            <Game
+              name={game.name}
+              released={game.released}
+              id={game.id}
+              image={game.background_image}
+              key={game.id}
+            />
+          ))}
+        </Games>
+        <h2>New games</h2>
+        <Games
+          className={`${isSmallSelected ? "small-cards" : ""}${
+            isMediumSelected ? "medium-cards" : ""
+          }${isLargeSelected ? "large-cards" : ""}`}
         >
-          L
-        </button>
-      </div>
-      <Games
-        className={`${isSmallSelected ? "small-cards" : ""}${
-          isMediumSelected ? "medium-cards" : ""
-        }${isLargeSelected ? "large-cards" : ""}`}
-      >
-        {/* <Games className="small-cards"> */}
-        {upcoming.map((game) => (
-          <Game
-            name={game.name}
-            released={game.released}
-            id={game.id}
-            image={game.background_image}
-            key={game.id}
-          />
-        ))}
-      </Games>
-      <h2>Popular games</h2>
-      <Games
-        className={`${isSmallSelected ? "small-cards" : ""}${
-          isMediumSelected ? "medium-cards" : ""
-        }${isLargeSelected ? "large-cards" : ""}`}
-      >
-        {popular.map((game) => (
-          <Game
-            name={game.name}
-            released={game.released}
-            id={game.id}
-            image={game.background_image}
-            key={game.id}
-          />
-        ))}
-      </Games>
-      <h2>New games</h2>
-      <Games
-        className={`${isSmallSelected ? "small-cards" : ""}${
-          isMediumSelected ? "medium-cards" : ""
-        }${isLargeSelected ? "large-cards" : ""}`}
-      >
-        {newGames.map((game) => (
-          <Game
-            name={game.name}
-            released={game.released}
-            id={game.id}
-            image={game.background_image}
-            key={game.id}
-          />
-        ))}
-      </Games>
-    </GameList>
+          {newGames.map((game) => (
+            <Game
+              name={game.name}
+              released={game.released}
+              id={game.id}
+              image={game.background_image}
+              key={game.id}
+            />
+          ))}
+        </Games>
+      </GameList>
+    </>
   );
 };
 
+// Styled components
 const GameList = styled(motion.div)`
   padding: 0rem 5rem;
 
   h2 {
     padding: 5rem 0rem;
   }
+`;
+
+const Games = styled(motion.div)`
+  /* min-height: 80vh; */
+  display: grid;
+  grid-column-gap: 3rem;
+  grid-row-gap: 5rem;
+`;
+
+const Banner = styled(motion.div)`
+  /* background: url(https://images.pexels.com/photos/4842496/pexels-photo-4842496.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260); */
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  padding: 5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(0.7);
+  }
+
+  h3 {
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.25rem;
+  }
 
   button {
     background: transparent;
     padding: 0.5rem 1rem;
     text-transform: uppercase;
-    margin: 0rem 1rem 2rem 0rem;
+    margin: 0rem 1rem 1rem 0rem;
     cursor: pointer;
+    border: 1px solid white;
+    color: white;
     border-radius: 0.5rem;
     box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
 
@@ -158,19 +229,19 @@ const GameList = styled(motion.div)`
     }
   }
 
-  .view-container,
-  .card-toggle-container {
-    width: 50%;
-    display: inline-block;
-    /* border: 1px solid red; */
-  }
-`;
+  .filters {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
 
-const Games = styled(motion.div)`
-  /* min-height: 80vh; */
-  display: grid;
-  grid-column-gap: 3rem;
-  grid-row-gap: 5rem;
+    .view-container,
+    .card-toggle-container {
+      width: 50%;
+      display: inline-block;
+      /* border: 1px solid red; */
+    }
+  }
 `;
 
 export default Home;
