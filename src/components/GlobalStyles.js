@@ -50,6 +50,24 @@ const GlobalStyles = createGlobalStyle`
     text-decoration: none;
     color: #333;
   }
+
+  .small-cards {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  .medium-cards {
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
+
+  .large-cards {
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  }
+
+  .card-highlighted {
+    background: #bfbfeb !important;
+  }
+
+
 `;
 
 export default GlobalStyles;
