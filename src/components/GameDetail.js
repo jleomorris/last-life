@@ -30,6 +30,9 @@ const GameDetail = () => {
             <CardTop>
               <Media>
                 <img src={game.background_image} alt={game.background_image} />
+                <video controls autoPlay loop>
+                  <source src={game.clip.clip} />
+                </video>
               </Media>
               <Stats>
                 <div className="rating">
@@ -149,10 +152,16 @@ const Media = styled(motion.div)`
     object-fit: cover;
     object-position: top;
   }
+
+  video {
+    bottom: -150px;
+    right: 100px;
+    position: absolute;
+  }
 `;
 
 const Description = styled(motion.div)`
-  margin: 5rem;
+  margin: 15rem 5rem 5rem 5rem;
 `;
 
 const Gallery = styled(motion.div)`
