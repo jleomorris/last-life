@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 // React router
 import { useHistory } from "react-router-dom";
+// Util
+import { convertToSmallImage } from "../util";
 
 const GameDetail = () => {
   const history = useHistory();
@@ -29,10 +31,15 @@ const GameDetail = () => {
           <Detail>
             <CardTop>
               <Media>
-                <img src={game.background_image} alt={game.background_image} />
-                <video controls autoPlay loop>
-                  <source src={game.clip.clip} />
-                </video>
+                <img
+                  src={convertToSmallImage(game.background_image, 1920)}
+                  alt={game.background_image}
+                />
+                {game.clip && (
+                  <video controls autoPlay loop width="720" height="405">
+                    <source src={game.clip.clips.full} />
+                  </video>
+                )}
               </Media>
               <Stats>
                 <div className="rating">
@@ -55,7 +62,7 @@ const GameDetail = () => {
             <Gallery>
               {screenshots.results.map((screenshot) => (
                 <img
-                  src={screenshot.image}
+                  src={convertToSmallImage(screenshot.image, 1920)}
                   key={screenshot.id}
                   alt={screenshot.image}
                 />
@@ -161,12 +168,12 @@ const Media = styled(motion.div)`
 `;
 
 const Description = styled(motion.div)`
-  margin: 15rem 5rem 5rem 5rem;
+  margin: 13rem 5rem 5rem 5rem;
 `;
 
 const Gallery = styled(motion.div)`
   img {
-    margin: 0.25rem 0rem;
+    display: block;
   }
 `;
 

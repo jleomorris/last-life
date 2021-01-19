@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { loadDetail } from "../actions/detailAction";
 // React router
 import { Link } from "react-router-dom";
+// Util
+import { convertToSmallImage } from "../util";
 
 const Game = ({ name, released, image, id }) => {
   // Load details
@@ -19,7 +21,10 @@ const Game = ({ name, released, image, id }) => {
 
   return (
     <StyledGame>
-      <div style={{ background: `url(${image})` }} onClick={loadDetailHandler}>
+      <div
+        style={{ background: `url(${convertToSmallImage(image, 640)})` }}
+        onClick={loadDetailHandler}
+      >
         <Link to={`/game/${id}`}>
           <div className="title">
             <h3>{name}</h3>
