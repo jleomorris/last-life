@@ -59,7 +59,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   .small-cards {
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
 
   .medium-cards {

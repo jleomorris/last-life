@@ -11,27 +11,30 @@ import { Link } from "react-router-dom";
 import { convertToSmallImage } from "../util";
 
 const Game = ({ name, released, image, id }) => {
+  const stringPathId = id.toString();
   // Load details
   const dispatch = useDispatch();
 
   const loadDetailHandler = () => {
     document.body.style.overflow = "hidden";
     dispatch(loadDetail(id));
+    console.log(stringPathId, typeof stringPathId);
   };
 
   return (
-    <StyledGame>
-      <div
+    <StyledGame layoutID={stringPathId}>
+      <motion.div
         style={{ background: `url(${convertToSmallImage(image, 640)})` }}
         onClick={loadDetailHandler}
+        layoutId={`image ${stringPathId}`}
       >
         <Link to={`/game/${id}`}>
           <div className="title">
-            <h3>{name}</h3>
+            <motion.h3 layoutId={`title ${stringPathId}`}>{name}</motion.h3>
             <p>{released}</p>
           </div>
         </Link>
-      </div>
+      </motion.div>
     </StyledGame>
   );
 };
@@ -39,9 +42,9 @@ const Game = ({ name, released, image, id }) => {
 const StyledGame = styled(motion.div)`
   min-height: 40vh;
   box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
-  text-align: left;
   overflow: hidden;
   cursor: pointer;
+  border-radius: 1rem;
 
   div {
     height: 100%;

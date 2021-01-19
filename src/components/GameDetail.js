@@ -9,7 +9,9 @@ import { useHistory } from "react-router-dom";
 // Util
 import { convertToSmallImage } from "../util";
 
-const GameDetail = () => {
+const GameDetail = ({ pathId }) => {
+  console.log(pathId, typeof pathId);
+
   const history = useHistory();
   //Data
   const { screenshots, game, isLoading } = useSelector((state) => state.detail);
@@ -17,6 +19,7 @@ const GameDetail = () => {
   //Exit detail
   const exitDetailHandler = (e) => {
     const element = e.target;
+    console.log(element);
 
     if (element.classList.contains("shadow")) {
       document.body.style.overflow = "auto";
@@ -28,12 +31,13 @@ const GameDetail = () => {
     <>
       {!isLoading && (
         <CardShadow className="shadow" onClick={exitDetailHandler}>
-          <Detail>
+          <Detail layoutId={pathId}>
             <CardTop>
               <Media>
-                <img
+                <motion.img
                   src={convertToSmallImage(game.background_image, 1920)}
                   alt={game.background_image}
+                  layoutId={`image ${pathId}`}
                 />
                 {game.clip && (
                   <video controls autoPlay loop width="720" height="405">
@@ -43,7 +47,9 @@ const GameDetail = () => {
               </Media>
               <Stats>
                 <div className="rating">
-                  <h3>{game.name}</h3>
+                  <motion.h3 layoutId={`title ${pathId}`}>
+                    {game.name}
+                  </motion.h3>
                   <p>Rating: {game.rating} / 5</p>
                 </div>
                 <Info>

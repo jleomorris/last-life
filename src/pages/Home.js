@@ -12,7 +12,7 @@ import {
 import Game from "../components/Game";
 // Styling and animation
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 // React router
 import { useLocation } from "react-router-dom";
 //Images
@@ -113,55 +113,59 @@ const Home = () => {
         </div>
       </Banner>
       <GameList>
-        {pathId && <GameDetail />}
-        <h2>Popular games</h2>
-        <Games
-          className={`${isSmallSelected ? "small-cards" : ""}${
-            isMediumSelected ? "medium-cards" : ""
-          }${isLargeSelected ? "large-cards" : ""}`}
-        >
-          {popular.map((game) => (
-            <Game
-              name={game.name}
-              released={game.released}
-              id={game.id}
-              image={game.background_image}
-              key={game.id}
-            />
-          ))}
-        </Games>
-        <h2>New games</h2>
-        <Games
-          className={`${isSmallSelected ? "small-cards" : ""}${
-            isMediumSelected ? "medium-cards" : ""
-          }${isLargeSelected ? "large-cards" : ""}`}
-        >
-          {newGames.map((game) => (
-            <Game
-              name={game.name}
-              released={game.released}
-              id={game.id}
-              image={game.background_image}
-              key={game.id}
-            />
-          ))}
-        </Games>
-        <h2>Upcoming games</h2>
-        <Games
-          className={`${isSmallSelected ? "small-cards" : ""}${
-            isMediumSelected ? "medium-cards" : ""
-          }${isLargeSelected ? "large-cards" : ""}`}
-        >
-          {upcoming.map((game) => (
-            <Game
-              name={game.name}
-              released={game.released}
-              id={game.id}
-              image={game.background_image}
-              key={game.id}
-            />
-          ))}
-        </Games>
+        <AnimateSharedLayout type="crossfade">
+          <AnimatePresence>
+            {pathId && <GameDetail pathId={pathId} />}
+          </AnimatePresence>
+          <h2>Popular games</h2>
+          <Games
+            className={`${isSmallSelected ? "small-cards" : ""}${
+              isMediumSelected ? "medium-cards" : ""
+            }${isLargeSelected ? "large-cards" : ""}`}
+          >
+            {popular.map((game) => (
+              <Game
+                name={game.name}
+                released={game.released}
+                id={game.id}
+                image={game.background_image}
+                key={game.id}
+              />
+            ))}
+          </Games>
+          <h2>New games</h2>
+          <Games
+            className={`${isSmallSelected ? "small-cards" : ""}${
+              isMediumSelected ? "medium-cards" : ""
+            }${isLargeSelected ? "large-cards" : ""}`}
+          >
+            {newGames.map((game) => (
+              <Game
+                name={game.name}
+                released={game.released}
+                id={game.id}
+                image={game.background_image}
+                key={game.id}
+              />
+            ))}
+          </Games>
+          <h2>Upcoming games</h2>
+          <Games
+            className={`${isSmallSelected ? "small-cards" : ""}${
+              isMediumSelected ? "medium-cards" : ""
+            }${isLargeSelected ? "large-cards" : ""}`}
+          >
+            {upcoming.map((game) => (
+              <Game
+                name={game.name}
+                released={game.released}
+                id={game.id}
+                image={game.background_image}
+                key={game.id}
+              />
+            ))}
+          </Games>
+        </AnimateSharedLayout>
       </GameList>
     </>
   );
@@ -179,8 +183,8 @@ const GameList = styled(motion.div)`
 const Games = styled(motion.div)`
   /* min-height: 80vh; */
   display: grid;
-  /* grid-column-gap: 3rem;
-  grid-row-gap: 5rem; */
+  grid-column-gap: 1rem;
+  grid-row-gap: 1rem;
   margin: 2rem 0rem;
 `;
 
