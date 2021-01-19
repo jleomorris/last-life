@@ -114,22 +114,6 @@ const Home = () => {
       </Banner>
       <GameList>
         {pathId && <GameDetail />}
-        <h2>Upcoming games</h2>
-        <Games
-          className={`${isSmallSelected ? "small-cards" : ""}${
-            isMediumSelected ? "medium-cards" : ""
-          }${isLargeSelected ? "large-cards" : ""}`}
-        >
-          {upcoming.map((game) => (
-            <Game
-              name={game.name}
-              released={game.released}
-              id={game.id}
-              image={game.background_image}
-              key={game.id}
-            />
-          ))}
-        </Games>
         <h2>Popular games</h2>
         <Games
           className={`${isSmallSelected ? "small-cards" : ""}${
@@ -162,6 +146,22 @@ const Home = () => {
             />
           ))}
         </Games>
+        <h2>Upcoming games</h2>
+        <Games
+          className={`${isSmallSelected ? "small-cards" : ""}${
+            isMediumSelected ? "medium-cards" : ""
+          }${isLargeSelected ? "large-cards" : ""}`}
+        >
+          {upcoming.map((game) => (
+            <Game
+              name={game.name}
+              released={game.released}
+              id={game.id}
+              image={game.background_image}
+              key={game.id}
+            />
+          ))}
+        </Games>
       </GameList>
     </>
   );
@@ -179,8 +179,8 @@ const GameList = styled(motion.div)`
 const Games = styled(motion.div)`
   /* min-height: 80vh; */
   display: grid;
-  grid-column-gap: 3rem;
-  grid-row-gap: 5rem;
+  /* grid-column-gap: 3rem;
+  grid-row-gap: 5rem; */
   margin: 2rem 0rem;
 `;
 
