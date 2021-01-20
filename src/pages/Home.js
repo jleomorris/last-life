@@ -130,6 +130,7 @@ const Home = () => {
                 id={game.id}
                 image={game.background_image}
                 key={game.id}
+                metacriticScore={game.metacritic}
               />
             ))}
           </Games>
@@ -183,8 +184,8 @@ const GameList = styled(motion.div)`
 const Games = styled(motion.div)`
   /* min-height: 80vh; */
   display: grid;
-  grid-column-gap: 1rem;
-  grid-row-gap: 1rem;
+  grid-column-gap: 1.5rem;
+  grid-row-gap: 1.5rem;
   margin: 2rem 0rem;
 `;
 
