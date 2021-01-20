@@ -21,9 +21,6 @@ const Game = ({ name, released, image, id, metacriticScore }) => {
     console.log(stringPathId, typeof stringPathId);
   };
 
-  console.log(metacriticScore != "");
-  console.log(metacriticScore === null);
-
   return (
     <StyledGame layoutID={stringPathId}>
       <motion.div
@@ -39,9 +36,12 @@ const Game = ({ name, released, image, id, metacriticScore }) => {
           </div>
         </Link>
         {metacriticScore !== null ? (
-          <div className="metacritic-score">
+          <motion.div
+            className="metacritic-score"
+            LayoutId={`metacritic-score ${stringPathId}`}
+          >
             <p>{metacriticScore}</p>
-          </div>
+          </motion.div>
         ) : (
           <div className="not-available metacritic-score">
             <p>N/A</p>
@@ -105,7 +105,7 @@ const StyledGame = styled(motion.div)`
     height: fit-content;
     border: 4px solid #ffcc34;
     padding: 0rem 1rem;
-    border-radius: 50%;
+    border-radius: 1rem;
 
     p {
       color: white;
