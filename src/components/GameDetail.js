@@ -15,6 +15,8 @@ import xbox from "../img/xbox.svg";
 import nintendo from "../img/nintendo.svg";
 import apple from "../img/apple.svg";
 import gamepad from "../img/gamepad.svg";
+import starEmpty from "../img/star-empty.png";
+import starFull from "../img/star-full.png";
 
 const GameDetail = ({ pathId }) => {
   const history = useHistory();
@@ -44,6 +46,21 @@ const GameDetail = ({ pathId }) => {
     }
   };
 
+  const getStars = () => {
+    const stars = [];
+    const rating = Math.floor(game.rating);
+
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        stars.push(<img alt="star" key={i} src={starFull}></img>);
+      } else {
+        stars.push(<img alt="star" key={i} src={starEmpty}></img>);
+      }
+    }
+
+    return stars;
+  };
+
   const exitDetailHandler = (e) => {
     const element = e.target;
     console.log(element);
@@ -58,19 +75,23 @@ const GameDetail = ({ pathId }) => {
     <>
       {!isLoading && (
         <CardShadow className="shadow" onClick={exitDetailHandler}>
-          <Detail layoutId={pathId}>
+          <Detail
+            // layoutId={pathId}
+            layoutId={`image ${pathId}`}
+          >
             <CardTop>
               <Media>
                 <motion.img
                   src={convertToSmallImage(game.background_image, 1920)}
                   alt={game.background_image}
-                  layoutId={`image ${pathId}`}
+                  // layoutId={`image ${pathId}`}
                 />
                 {game.clip && (
                   <video controls autoPlay loop width="720" height="405">
                     <source src={game.clip.clips.full} />
                   </video>
                 )}
+                <motion.div className="star-container">{getStars()}</motion.div>
               </Media>
               <Stats>
                 <div className="rating">
@@ -78,6 +99,7 @@ const GameDetail = ({ pathId }) => {
                     {game.name}
                   </motion.h3>
                   <p>Rating: {game.rating} / 5</p>
+                  {/* {getStars()} */}
                 </div>
                 <Info>
                   <h3>Platforms</h3>
@@ -206,6 +228,23 @@ const Media = styled(motion.div)`
     right: 100px;
     position: absolute;
     box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.6);
+  }
+
+  .star-container {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+
+    img {
+      width: 4rem;
+      height: 4rem;
+      margin: 0.5rem;
+      /* display: inline; */
+    }
   }
 `;
 
