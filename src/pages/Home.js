@@ -28,8 +28,8 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Set 10 games per section and card size large by default
-    dispatch(loadGames(10));
+    // Set 30 games per section and card size large by default
+    dispatch(loadGames(30));
     dispatch(setLargeCards());
   }, [dispatch]);
 

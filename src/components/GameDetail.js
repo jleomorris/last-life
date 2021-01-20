@@ -91,15 +91,41 @@ const GameDetail = ({ pathId }) => {
                     <source src={game.clip.clips.full} />
                   </video>
                 )}
-                <motion.div className="star-container">{getStars()}</motion.div>
+                <div className="vote">
+                  {game.ratings.map((rating) => (
+                    <div className="vote-container" key={rating.title}>
+                      <p className="vote-title">{rating.title}</p>
+                      <div
+                        className="vote-count-bar"
+                        style={{
+                          width: `${rating.count}px`,
+                          // background: `#${game.dominant_color}`,
+                        }}
+                      ></div>
+                    </div>
+                  ))}
+                </div>
               </Media>
               <Stats>
                 <div className="rating">
-                  <motion.h3 layoutId={`title ${pathId}`}>
+                  <motion.h3 className="game-name" layoutId={`title ${pathId}`}>
                     {game.name}
                   </motion.h3>
-                  <p>Rating: {game.rating} / 5</p>
-                  {/* {getStars()} */}
+                  {game.publishers.map((publisher) => (
+                    <p className="publisher-name">{publisher.name}</p>
+                  ))}
+                  <motion.div className="rating-container">
+                    <div className="star-container">
+                      {getStars()}
+                      <p>({game.rating})</p>
+                    </div>
+                    <a href={game.metacritic_url} target="_blank">
+                      {game.metacritic_url}
+                    </a>
+                    <a href={game.website} target="_blank">
+                      {game.website}
+                    </a>
+                  </motion.div>
                 </div>
                 <Info>
                   <h3>Platforms</h3>
@@ -114,10 +140,24 @@ const GameDetail = ({ pathId }) => {
                     ))}
                   </Platforms>
                 </Info>
+                <MetacriticScore>
+                  {game.metacritic !== null ? (
+                    <motion.div
+                      className="metacritic-score"
+                      LayoutId={`metacritic-score ${pathId}`}
+                    >
+                      <p>{game.metacritic}</p>
+                    </motion.div>
+                  ) : (
+                    <div className="not-available metacritic-score">
+                      <p>N/A</p>
+                    </div>
+                  )}
+                </MetacriticScore>
               </Stats>
             </CardTop>
             <Description>
-              <p>{game.description_raw}</p>
+              <p className="description">{game.description_raw}</p>
             </Description>
             <Gallery>
               {screenshots.results.map((screenshot) => (
@@ -139,7 +179,7 @@ const CardShadow = styled(motion.div)`
   width: 100%;
   min-height: 100vh;
   overflow-y: scroll;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
   position: fixed;
   top: 0;
   left: 0;
@@ -184,10 +224,53 @@ const Stats = styled(motion.div)`
   left: 0;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 100%;
   padding: 0rem 2rem;
   background: rgba(0, 0, 0, 0.4);
+
+  .rating {
+    flex: auto;
+  }
+
+  .publisher-name {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25rem;
+  }
+
+  .game-name {
+    font-size: 2rem;
+    margin-top: 1.5rem;
+    padding: 0;
+    font-weight: 900;
+  }
+
+  .rating-container {
+    margin: 1rem 0rem;
+
+    a {
+      color: white;
+      margin: 0.75rem 0rem;
+      display: block;
+    }
+
+    .star-container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      /* margin: 0.5rem 0rem; */
+
+      img {
+        margin: 0rem 0.1rem;
+        width: fit-content;
+      }
+
+      p {
+        margin-left: 0.5rem;
+      }
+    }
+  }
 
   h3,
   p {
@@ -197,6 +280,12 @@ const Stats = styled(motion.div)`
 
 const Info = styled(motion.div)`
   text-align: center;
+  margin-right: 2rem;
+  justify-self: flex-end;
+
+  h3 {
+    font-size: 1.5rem;
+  }
 `;
 
 const Platforms = styled(motion.div)`
@@ -204,55 +293,112 @@ const Platforms = styled(motion.div)`
   justify-content: space-evenly;
   margin-bottom: 2rem;
 
-  h3 {
-    margin: 0rem 1rem;
-  }
-
   img {
     margin: 0rem 1rem;
+    width: 70px;
+    height: 70px;
   }
 `;
 
-const Media = styled(motion.div)`
-  /* margin-top: 5rem; */
+const MetacriticScore = styled(motion.div)`
+  .metacritic-score {
+    /* position: absolute;
+    top: -0.75rem;
+    right: -0.75rem; */
+    background: #333333;
+    height: fit-content;
+    border: 4px solid #ffcc34;
+    padding: 0rem 1.5rem;
+    border-radius: 1rem;
+    margin: 1.5rem 0rem;
 
-  img {
-    width: 100%;
-    /* height: 60vh; */
-    object-fit: cover;
-    object-position: top;
+    p {
+      color: white;
+      font-weight: 900;
+      font-size: 4rem;
+    }
   }
 
-  video {
-    bottom: -150px;
-    right: 100px;
-    position: absolute;
-    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.6);
-  }
+  .not-available {
+    padding: 0.5rem 1rem;
 
-  .star-container {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 1rem;
-
-    img {
-      width: 4rem;
-      height: 4rem;
-      margin: 0.5rem;
-      /* display: inline; */
+    p {
+      font-size: 4rem;
     }
   }
 `;
 
+const Media = styled(motion.div)`
+  .vote {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid white;
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    min-width: 360px;
+    max-width: 40%;
+
+    .vote-container {
+      /* border: 2px solid green; */
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      .vote-title {
+        margin: 0.5rem 1rem;
+        color: white;
+        flex-basis: 50%;
+      }
+
+      .vote-count-bar {
+        background: white;
+        height: 0.5rem;
+        max-width: 40%;
+      }
+    }
+  }
+
+  img {
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+
+  video {
+    z-index: 1;
+    bottom: -40px;
+    right: 50px;
+    position: absolute;
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.6);
+  }
+`;
+
 const Description = styled(motion.div)`
-  margin: 13rem 5rem 5rem 5rem;
+  position: relative;
+  /* margin: 13rem 5rem 5rem 5rem; */
+
+  .description {
+    /* width: 40%;
+    position: absolute;
+    border: 4px solid black; */
+    padding: 2rem;
+    /* top: 50px;
+    left: 50px; */
+    padding: 4rem 6rem;
+    color: black;
+    /* background: rgba(256, 256, 256, 0.6); */
+  }
 `;
 
 const Gallery = styled(motion.div)`
+  position: relative;
+
   img {
     display: block;
   }
