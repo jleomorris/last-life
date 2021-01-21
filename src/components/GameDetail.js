@@ -82,12 +82,13 @@ const GameDetail = ({ pathId }) => {
             <CardTop>
               <Media>
                 <motion.img
+                  className="card-top-background-image"
                   src={convertToSmallImage(game.background_image, 1920)}
                   alt={game.background_image}
                   // layoutId={`image ${pathId}`}
                 />
                 {game.clip && (
-                  <video controls autoPlay loop width="720" height="405">
+                  <video controls autoPlay loop>
                     <source src={game.clip.clips.full} />
                   </video>
                 )}
@@ -208,10 +209,17 @@ const Detail = styled(motion.div)`
   margin: 2rem;
   background: white;
   position: absolute;
-  left: 10%;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, 0%);
   color: black;
   overflow: hidden;
   z-index: 10;
+
+  /* @media (max-width: 1200px) {
+    width: 100%;
+    left: 0%;
+  } */
 
   img {
     width: 100%;
@@ -229,8 +237,17 @@ const Stats = styled(motion.div)`
   padding: 0rem 2rem;
   background: rgba(0, 0, 0, 0.4);
 
+  @media (max-width: 1200px) {
+    justify-content: space-between;
+  }
+
   .rating {
     flex: auto;
+
+    @media (max-width: 1200px) {
+      flex: unset;
+      width: 60%;
+    }
   }
 
   .publisher-name {
@@ -282,6 +299,10 @@ const Info = styled(motion.div)`
   text-align: center;
   margin-right: 2rem;
   justify-self: flex-end;
+
+  @media (max-width: 1200px) {
+    display: none;
+  }
 
   h3 {
     font-size: 1.5rem;
@@ -343,6 +364,10 @@ const Media = styled(motion.div)`
     min-width: 360px;
     max-width: 40%;
 
+    @media (max-width: 1200px) {
+      display: none;
+    }
+
     .vote-container {
       /* border: 2px solid green; */
       display: flex;
@@ -363,19 +388,31 @@ const Media = styled(motion.div)`
     }
   }
 
-  img {
+  .card-top-background-image {
     width: 100%;
     object-fit: cover;
     object-position: top;
     display: block;
+
+    @media (max-width: 1200px) {
+      min-height: 80vh;
+    }
   }
 
   video {
     z-index: 1;
+    width: 50%;
     bottom: -40px;
     right: 50px;
     position: absolute;
     box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.6);
+
+    @media (max-width: 1200px) {
+      transform: translate(-50%, 0);
+      width: 80%;
+      bottom: -40px;
+      left: 50%;
+    }
   }
 `;
 
@@ -384,15 +421,12 @@ const Description = styled(motion.div)`
   /* margin: 13rem 5rem 5rem 5rem; */
 
   .description {
-    /* width: 40%;
-    position: absolute;
-    border: 4px solid black; */
-    padding: 2rem;
-    /* top: 50px;
-    left: 50px; */
-    padding: 4rem 6rem;
+    padding: 6rem 8rem;
     color: black;
-    /* background: rgba(256, 256, 256, 0.6); */
+
+    @media (max-width: 1200px) {
+      padding: 6rem 3rem;
+    }
   }
 `;
 
