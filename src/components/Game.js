@@ -2,6 +2,7 @@ import React from "react";
 // Styling and animation
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { popup } from "../animations";
 // Redux
 import { useDispatch } from "react-redux";
 import { loadDetail } from "../actions/detailAction";
@@ -22,7 +23,12 @@ const Game = ({ name, released, image, id, metacriticScore }) => {
   };
 
   return (
-    <StyledGame layoutID={stringPathId}>
+    <StyledGame
+      variants={popup}
+      initial="hidden"
+      animate="show"
+      layoutID={stringPathId}
+    >
       <motion.div
         className="details-container"
         style={{ background: `url(${convertToSmallImage(image, 640)})` }}

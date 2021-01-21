@@ -12,6 +12,7 @@ import {
 import Game from "../components/Game";
 // Styling and animation
 import styled from "styled-components";
+import { fadeIn, popup } from "../animations";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 // React router
 import { useLocation } from "react-router-dom";
@@ -80,15 +81,20 @@ const Home = () => {
       <Banner>
         <img className="banner-image" src={bannerImage} alt="banner-image" />
         <div className="title-logo-search-container">
-          <div className="app-logo-title-container">
+          <motion.div
+            className="app-logo-title-container"
+            variants={fadeIn}
+            initial="hidden"
+            animate="show"
+          >
             <img
               className="app-logo"
               src={logo}
               alt="logo"
               onClick={clearSearched}
             />
-            <h1>RawgFind</h1>
-          </div>
+            <h1>LastLife</h1>
+          </motion.div>
           <form onSubmit={submitSearch} className="search-container">
             <input value={textInput} type="text" onChange={inputHandler} />
             <button type="submit">Search</button>
@@ -157,7 +163,7 @@ const Home = () => {
           </div>
         </div>
       </Banner>
-      <GameList>
+      <GameList variants={fadeIn} initial="hidden" animate="show">
         <AnimateSharedLayout type="crossfade">
           <AnimatePresence>
             {pathId && <GameDetail pathId={pathId} />}
