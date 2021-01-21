@@ -209,17 +209,22 @@ const Detail = styled(motion.div)`
   margin: 2rem;
   background: white;
   position: absolute;
-  left: 50%;
+  left: 9%;
   top: 0;
-  transform: translate(-50%, 0%);
+  /* transform: translate(-50%, 0%); */
   color: black;
   overflow: hidden;
   z-index: 10;
 
-  /* @media (max-width: 1200px) {
-    width: 100%;
-    left: 0%;
-  } */
+  @media (max-width: 1200px) {
+    width: 85%;
+    left: 4%;
+  }
+
+  @media (max-width: 800px) {
+    width: 85%;
+    left: 2.5%;
+  }
 
   img {
     width: 100%;
@@ -239,6 +244,7 @@ const Stats = styled(motion.div)`
 
   @media (max-width: 1200px) {
     justify-content: space-between;
+    padding: 0rem 0.5rem;
   }
 
   .rating {
@@ -247,6 +253,7 @@ const Stats = styled(motion.div)`
     @media (max-width: 1200px) {
       flex: unset;
       width: 60%;
+      margin: 0.5rem;
     }
   }
 
@@ -261,6 +268,10 @@ const Stats = styled(motion.div)`
     margin-top: 1.5rem;
     padding: 0;
     font-weight: 900;
+
+    @media (max-width: 1200px) {
+      margin-top: 0.5rem;
+    }
   }
 
   .rating-container {
@@ -270,6 +281,7 @@ const Stats = styled(motion.div)`
       color: white;
       margin: 0.75rem 0rem;
       display: block;
+      line-break: anywhere;
     }
 
     .star-container {
@@ -322,6 +334,12 @@ const Platforms = styled(motion.div)`
 `;
 
 const MetacriticScore = styled(motion.div)`
+  @media (max-width: 1200px) {
+    position: absolute;
+    top: 0;
+    right: 20px;
+  }
+
   .metacritic-score {
     /* position: absolute;
     top: -0.75rem;
@@ -395,7 +413,11 @@ const Media = styled(motion.div)`
     display: block;
 
     @media (max-width: 1200px) {
-      min-height: 80vh;
+      min-height: 90vh;
+    }
+
+    @media (max-width: 800px) {
+      min-height: 70vh;
     }
   }
 

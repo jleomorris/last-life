@@ -103,19 +103,25 @@ const Home = () => {
             <h3>Card size</h3>
             <button
               onClick={() => cardSizeHandler("small")}
-              className={`${isSmallSelected ? "card-highlighted" : ""}`}
+              className={`${
+                isSmallSelected ? "card-highlighted" : ""
+              } small-card-button`}
             >
               S
             </button>
             <button
               onClick={() => cardSizeHandler("medium")}
-              className={`${isMediumSelected ? "card-highlighted" : ""}`}
+              className={`${
+                isMediumSelected ? "card-highlighted" : ""
+              } medium-card-button`}
             >
               M
             </button>
             <button
               onClick={() => cardSizeHandler("large")}
-              className={`${isLargeSelected ? "card-highlighted" : ""}`}
+              className={`${
+                isLargeSelected ? "card-highlighted" : ""
+              } large-card-button`}
             >
               L
             </button>
@@ -199,6 +205,10 @@ const Games = styled(motion.div)`
   grid-column-gap: 1.5rem;
   grid-row-gap: 1.5rem;
   margin: 2rem 0rem;
+
+  @media (max-width: 800px) {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
 `;
 
 const Banner = styled(motion.div)`
@@ -211,6 +221,23 @@ const Banner = styled(motion.div)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media (max-width: 800px) {
+    min-height: 50vh;
+  }
+
+  .small-card-button {
+    @media (max-width: 800px) {
+      background: #bfbfeb;
+    }
+  }
+
+  .medium-card-button,
+  .large-card-button {
+    @media (max-width: 800px) {
+      display: none;
+    }
+  }
 
   .title-logo-search-container {
     display: flex;
@@ -242,6 +269,10 @@ const Banner = styled(motion.div)`
         outline: none;
         margin-left: 4rem;
         border-radius: 2rem 0rem 0rem 2rem;
+
+        @media (max-width: 1200px) {
+          width: 55%;
+        }
       }
 
       button {

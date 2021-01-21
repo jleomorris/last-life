@@ -68,14 +68,21 @@ const GlobalStyles = createGlobalStyle`
 
   .medium-cards {
       grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  }
-
-  .large-cards {
+    }
+    
+    .large-cards {
       grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   }
 
   .card-highlighted {
     background: #bfbfeb !important;
+  }
+
+  // Media queries
+  html {
+    @media (max-width: 1700px) {
+      font-size: 75%;
+    }
   }
 
 
