@@ -411,6 +411,7 @@ const Media = styled(motion.div)`
     object-fit: cover;
     object-position: top;
     display: block;
+    max-height: 80vh;
 
     @media (max-width: 1200px) {
       min-height: 90vh;

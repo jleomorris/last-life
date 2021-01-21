@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import GameDetail from "../components/GameDetail";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -18,20 +18,42 @@ import { useLocation } from "react-router-dom";
 //Images
 import bannerImage from "../img/pexels-photo-4842496.jpeg";
 import logo from "../img/logo.svg";
+// Redux and routes
+import { fetchSearch } from "../actions/gamesAction";
 
 const Home = () => {
   // Get current location
   const location = useLocation();
   const pathId = location.pathname.split("/")[2];
-  console.log(location);
-
-  // FETCH GAMES
   const dispatch = useDispatch();
+  const [textInput, setTextInput] = useState("");
+
+  const inputHandler = (e) => {
+    setTextInput(e.target.value);
+  };
+
+  const submitSearch = (e) => {
+    e.preventDefault();
+    dispatch(fetchSearch(textInput));
+    setTextInput("");
+  };
+
+  const clearSearched = () => {
+    dispatch({ type: "CLEAR_SEARCHED" });
+  };
 
   useEffect(() => {
     // Set 30 games per section and card size large by default
     dispatch(loadGames(30));
-    dispatch(setLargeCards());
+
+    // Set card size based on window size
+    if (window.innerWidth < 950) {
+      dispatch(setSmallCards());
+    } else if (window.innerWidth < 1200) {
+      dispatch(setMediumCards());
+    } else {
+      dispatch(setLargeCards());
+    }
   }, [dispatch]);
 
   const filterhandler = (number) => {
@@ -45,7 +67,9 @@ const Home = () => {
   };
 
   //Get data back
-  const { popular, newGames, upcoming } = useSelector((state) => state.games);
+  const { popular, newGames, upcoming, searched } = useSelector(
+    (state) => state.games
+  );
   // Card size variables
   const { isSmallSelected, isMediumSelected, isLargeSelected } = useSelector(
     (state) => state.cardSizes
@@ -57,13 +81,18 @@ const Home = () => {
         <img className="banner-image" src={bannerImage} alt="banner-image" />
         <div className="title-logo-search-container">
           <div className="app-logo-title-container">
-            <img className="app-logo" src={logo} alt="logo" />
+            <img
+              className="app-logo"
+              src={logo}
+              alt="logo"
+              onClick={clearSearched}
+            />
             <h1>RawgFind</h1>
           </div>
-          <div className="search-container">
-            <input type="text" />
-            <button>Search</button>
-          </div>
+          <form onSubmit={submitSearch} className="search-container">
+            <input value={textInput} type="text" onChange={inputHandler} />
+            <button type="submit">Search</button>
+          </form>
         </div>
         <div className="filters">
           <div className="view-container">
@@ -133,6 +162,27 @@ const Home = () => {
           <AnimatePresence>
             {pathId && <GameDetail pathId={pathId} />}
           </AnimatePresence>
+          {searched != "" && (
+            <>
+              <h2>Searched game results</h2>
+              <Games
+                className={`${isSmallSelected ? "small-cards" : ""}${
+                  isMediumSelected ? "medium-cards" : ""
+                }${isLargeSelected ? "large-cards" : ""}`}
+              >
+                {searched.map((game) => (
+                  <Game
+                    name={game.name}
+                    released={game.released}
+                    id={game.id}
+                    image={game.background_image}
+                    key={game.id}
+                    metacriticScore={game.metacritic}
+                  />
+                ))}
+              </Games>
+            </>
+          )}
           <h2>Popular games</h2>
           <Games
             className={`${isSmallSelected ? "small-cards" : ""}${
@@ -207,7 +257,7 @@ const Games = styled(motion.div)`
   margin: 2rem 0rem;
 
   @media (max-width: 800px) {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
   }
 `;
 
@@ -226,9 +276,21 @@ const Banner = styled(motion.div)`
     min-height: 50vh;
   }
 
-  .small-card-button {
+  /* .small-card-button {
     @media (max-width: 800px) {
       background: #bfbfeb;
+    }
+  }
+
+  .medium-card-button {
+    @media (max-width: 950px) {
+      background: #bfbfeb;
+    }
+  }
+
+  .large-card-button {
+    @media (max-width: 950px) {
+      display: none;
     }
   }
 
@@ -237,7 +299,7 @@ const Banner = styled(motion.div)`
     @media (max-width: 800px) {
       display: none;
     }
-  }
+  } */
 
   .title-logo-search-container {
     display: flex;
@@ -254,6 +316,7 @@ const Banner = styled(motion.div)`
         height: 3rem;
         width: 3rem;
         margin-right: 1rem;
+        cursor: pointer;
       }
     }
 
@@ -275,6 +338,7 @@ const Banner = styled(motion.div)`
         }
       }
 
+      /* /* // not working */
       button {
         font-size: 1.5rem;
         border: none;
@@ -286,6 +350,7 @@ const Banner = styled(motion.div)`
         border-left: 1px solid black;
         outline: none;
         text-transform: none;
+        outline: none;
       }
     }
   }
@@ -322,6 +387,7 @@ const Banner = styled(motion.div)`
     color: white;
     border-radius: 0.5rem;
     box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+    outline: none;
 
     &:hover {
       background: rgba(0, 0, 0, 0.1);
@@ -336,11 +402,45 @@ const Banner = styled(motion.div)`
     align-items: flex-start;
     flex-wrap: wrap;
 
+    @media (max-width: 800px) {
+      justify-content: space-between;
+    }
+
+    .card-toggle-container {
+      .small-card-button {
+        @media (max-width: 800px) {
+          background: #bfbfeb;
+        }
+      }
+
+      /* .medium-card-button {
+        @media (max-width: 950px) {
+          background: #bfbfeb;
+        }
+      } */
+
+      .large-card-button {
+        @media (max-width: 950px) {
+          display: none;
+        }
+      }
+
+      .medium-card-button,
+      .large-card-button {
+        @media (max-width: 800px) {
+          display: none;
+        }
+      }
+    }
+
     .view-container,
     .card-toggle-container {
       width: 50%;
       display: inline-block;
-      /* border: 1px solid red; */
+
+      @media (max-width: 800px) {
+        width: unset;
+      }
     }
   }
 `;
