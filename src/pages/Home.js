@@ -17,6 +17,7 @@ import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 import { useLocation } from "react-router-dom";
 //Images
 import bannerImage from "../img/pexels-photo-4842496.jpeg";
+import logo from "../img/logo.svg";
 
 const Home = () => {
   // Get current location
@@ -53,8 +54,17 @@ const Home = () => {
   return (
     <>
       <Banner>
-        <img src={bannerImage} alt="banner-image" />
-        <h1>RawgFind</h1>
+        <img className="banner-image" src={bannerImage} alt="banner-image" />
+        <div className="title-logo-search-container">
+          <div className="app-logo-title-container">
+            <img className="app-logo" src={logo} alt="logo" />
+            <h1>RawgFind</h1>
+          </div>
+          <div className="search-container">
+            <input type="text" />
+            <button>Search</button>
+          </div>
+        </div>
         <div className="filters">
           <div className="view-container">
             <h3>View</h3>
@@ -202,7 +212,59 @@ const Banner = styled(motion.div)`
   flex-direction: column;
   justify-content: space-between;
 
-  img {
+  .title-logo-search-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+
+    .app-logo-title-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        height: 3rem;
+        width: 3rem;
+        margin-right: 1rem;
+      }
+    }
+
+    .search-container {
+      width: 100%;
+      input {
+        width: 30%;
+        font-size: 1.5rem;
+        padding: 0.5rem 2rem;
+        border: none;
+        margin-top: 1rem;
+        box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
+        outline: none;
+        margin-left: 4rem;
+        border-radius: 2rem 0rem 0rem 2rem;
+      }
+
+      button {
+        font-size: 1.5rem;
+        border: none;
+        padding: 0.5rem 2rem;
+        cursor: pointer;
+        border-radius: 0rem 2rem 2rem 0rem;
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        border-left: 1px solid black;
+        outline: none;
+        text-transform: none;
+      }
+    }
+  }
+
+  .app-logo {
+    height: 2rem;
+    width: 2rem;
+  }
+
+  .banner-image {
     position: absolute;
     top: 0;
     left: 0;
