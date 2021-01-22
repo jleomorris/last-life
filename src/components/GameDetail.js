@@ -25,6 +25,8 @@ const GameDetail = ({ pathId }) => {
 
   const getPlatform = (platform) => {
     switch (platform) {
+      case "PlayStation 3":
+        return playstation;
       case "PlayStation 4":
         return playstation;
       case "PlayStation 5":
@@ -34,6 +36,8 @@ const GameDetail = ({ pathId }) => {
       case "Xbox S":
         return xbox;
       case "Xbox S/X":
+        return xbox;
+      case "Xbox 360":
         return xbox;
       case "PC":
         return steam;
@@ -412,7 +416,7 @@ const Media = styled(motion.div)`
     object-fit: cover;
     object-position: top;
     display: block;
-    max-height: 80vh;
+    height: 80vh;
 
     @media (max-width: 1200px) {
       min-height: 90vh;
