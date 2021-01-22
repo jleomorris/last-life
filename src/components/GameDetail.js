@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 //Styling and Animation
 import styled from "styled-components";
 import { motion } from "framer-motion";
@@ -20,8 +20,29 @@ import starFull from "../img/star-full.png";
 
 const GameDetail = ({ pathId }) => {
   const history = useHistory();
+  const [targetGame, setTargetGame] = useState([]);
   //Data
   const { screenshots, game, isLoading } = useSelector((state) => state.detail);
+  const allGames = [].concat(
+    useSelector((state) => state.games.newGames),
+    useSelector((state) => state.games.popular),
+    useSelector((state) => state.games.searched),
+    useSelector((state) => state.games.upcoming)
+  );
+
+  // const targetedGame = allGames.filter((game) => (game.id = pathId.toString()));
+
+  // console.log("targetedgame", targetedGame);
+
+  useEffect(() => {
+    console.log("pathId", pathId, typeof pathId);
+    console.log("allgames", allGames);
+    const filteredGame = allGames.filter(
+      (game) => game.id.toString() === pathId
+    );
+    setTargetGame(filteredGame);
+    // debugger;
+  }, []);
 
   const getPlatform = (platform) => {
     switch (platform) {
@@ -67,7 +88,7 @@ const GameDetail = ({ pathId }) => {
 
   const exitDetailHandler = (e) => {
     const element = e.target;
-    console.log(element);
+    // console.log(element);
 
     if (element.classList.contains("shadow")) {
       document.body.style.overflow = "auto";
@@ -117,7 +138,9 @@ const GameDetail = ({ pathId }) => {
                     {game.name}
                   </motion.h3>
                   {game.publishers.map((publisher) => (
-                    <p className="publisher-name">{publisher.name}</p>
+                    <p className="publisher-name" key={publisher.name}>
+                      {publisher.name}
+                    </p>
                   ))}
                   <motion.div className="rating-container">
                     <div className="star-container">
@@ -130,6 +153,9 @@ const GameDetail = ({ pathId }) => {
                     <a href={game.website} target="_blank">
                       {game.website}
                     </a>
+                    {targetGame[0].genres.map((genre) => (
+                      <p class="genre">{genre.name}</p>
+                    ))}
                   </motion.div>
                 </div>
                 <Info>
@@ -241,7 +267,7 @@ const Stats = styled(motion.div)`
   top: 0;
   left: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-end;
   width: 100%;
   padding: 0rem 2rem;
@@ -287,6 +313,13 @@ const Stats = styled(motion.div)`
       margin: 0.75rem 0rem;
       display: block;
       line-break: anywhere;
+    }
+
+    .genre {
+      display: inline-block;
+      margin: 0.5rem 0.5rem 0.5rem 0rem;
+      border: 1px solid white;
+      padding: 0.5rem 1rem;
     }
 
     .star-container {
