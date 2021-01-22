@@ -28,6 +28,14 @@ const Home = () => {
   const pathId = location.pathname.split("/")[2];
   const dispatch = useDispatch();
   const [textInput, setTextInput] = useState("");
+  // State extracted data
+  const { popular, newGames, upcoming, searched } = useSelector(
+    (state) => state.games
+  );
+  // Card size variables
+  const { isSmallSelected, isMediumSelected, isLargeSelected } = useSelector(
+    (state) => state.cardSizes
+  );
 
   const inputHandler = (e) => {
     setTextInput(e.target.value);
@@ -43,6 +51,16 @@ const Home = () => {
     dispatch({ type: "CLEAR_SEARCHED" });
   };
 
+  const filterhandler = (number) => {
+    dispatch(loadGames(number));
+  };
+
+  const cardSizeHandler = (size) => {
+    if (size === "small") dispatch(setSmallCards());
+    if (size === "medium") dispatch(setMediumCards());
+    if (size === "large") dispatch(setLargeCards());
+  };
+
   useEffect(() => {
     // Set 30 games per section and card size large by default
     dispatch(loadGames(30));
@@ -56,25 +74,6 @@ const Home = () => {
       dispatch(setLargeCards());
     }
   }, [dispatch]);
-
-  const filterhandler = (number) => {
-    dispatch(loadGames(number));
-  };
-
-  const cardSizeHandler = (size) => {
-    if (size === "small") dispatch(setSmallCards());
-    if (size === "medium") dispatch(setMediumCards());
-    if (size === "large") dispatch(setLargeCards());
-  };
-
-  //Get data back
-  const { popular, newGames, upcoming, searched } = useSelector(
-    (state) => state.games
-  );
-  // Card size variables
-  const { isSmallSelected, isMediumSelected, isLargeSelected } = useSelector(
-    (state) => state.cardSizes
-  );
 
   return (
     <>

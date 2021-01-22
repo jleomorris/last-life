@@ -25,9 +25,9 @@ const GameDetail = ({ pathId }) => {
 
   const getPlatform = (platform) => {
     switch (platform) {
-      case "Playstation 4":
+      case "PlayStation 4":
         return playstation;
-      case "Playstation 5":
+      case "PlayStation 5":
         return playstation;
       case "Xbox One":
         return xbox;
@@ -176,6 +176,7 @@ const GameDetail = ({ pathId }) => {
   );
 };
 
+// Styled components
 const CardShadow = styled(motion.div)`
   width: 100%;
   min-height: 100vh;
