@@ -1,3 +1,13 @@
+export const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.5,
+    },
+  },
+};
+
 export const fadeIn = {
   hidden: {
     opacity: 0,
@@ -5,7 +15,7 @@ export const fadeIn = {
   show: {
     opacity: 1,
     transition: {
-      duration: 0.75,
+      duration: 1,
     },
   },
   exit: {
@@ -24,6 +34,26 @@ export const popup = {
   show: {
     opacity: 1,
     scale: 1,
+    transition: {
+      duration: 0.75,
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 0.75,
+    },
+  },
+};
+
+export const slideLeft = {
+  hidden: {
+    opacity: 0,
+    x: 100,
+  },
+  show: {
+    opacity: 1,
+    x: 0,
     transition: {
       duration: 0.75,
     },

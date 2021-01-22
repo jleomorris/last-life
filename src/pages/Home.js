@@ -12,7 +12,7 @@ import {
 import Game from "../components/Game";
 // Styling and animation
 import styled from "styled-components";
-import { fadeIn, popup } from "../animations";
+import { container, fadeIn, slideLeft } from "../animations";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 // React router
 import { useLocation } from "react-router-dom";
@@ -78,14 +78,14 @@ const Home = () => {
 
   return (
     <>
-      <Banner>
+      <Banner variants={container} initial="hidden" animate="show">
         <img className="banner-image" src={bannerImage} alt="banner-image" />
         <div className="title-logo-search-container">
           <motion.div
             className="app-logo-title-container"
             variants={fadeIn}
-            initial="hidden"
-            animate="show"
+            // initial="hidden"
+            // animate="show"
           >
             <img
               className="app-logo"
@@ -95,10 +95,16 @@ const Home = () => {
             />
             <h1>LastLife</h1>
           </motion.div>
-          <form onSubmit={submitSearch} className="search-container">
+          <motion.form
+            onSubmit={submitSearch}
+            className="search-container"
+            variants={slideLeft}
+            // initial="hidden"
+            // animate="show"
+          >
             <input value={textInput} type="text" onChange={inputHandler} />
             <button type="submit">Search</button>
-          </form>
+          </motion.form>
         </div>
         <div className="filters">
           <div className="view-container">
@@ -163,7 +169,10 @@ const Home = () => {
           </div>
         </div>
       </Banner>
-      <GameList variants={fadeIn} initial="hidden" animate="show">
+      <GameList
+        variants={fadeIn}
+        // initial="hidden" animate="show"
+      >
         <AnimateSharedLayout type="crossfade">
           <AnimatePresence>
             {pathId && <GameDetail pathId={pathId} />}
