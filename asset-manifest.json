@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.js": "/last-life/static/js/main.719b46f8.chunk.js",
+    "main.js.map": "/last-life/static/js/main.719b46f8.chunk.js.map",
+    "runtime-main.js": "/last-life/static/js/runtime-main.3dd71376.js",
+    "runtime-main.js.map": "/last-life/static/js/runtime-main.3dd71376.js.map",
+    "static/js/2.08ea42e6.chunk.js": "/last-life/static/js/2.08ea42e6.chunk.js",
+    "static/js/2.08ea42e6.chunk.js.map": "/last-life/static/js/2.08ea42e6.chunk.js.map",
+    "static/js/3.c9f82aa3.chunk.js": "/last-life/static/js/3.c9f82aa3.chunk.js",
+    "static/js/3.c9f82aa3.chunk.js.map": "/last-life/static/js/3.c9f82aa3.chunk.js.map",
+    "index.html": "/last-life/index.html",
+    "static/js/2.08ea42e6.chunk.js.LICENSE.txt": "/last-life/static/js/2.08ea42e6.chunk.js.LICENSE.txt",
+    "static/media/apple.94d62011.svg": "/last-life/static/media/apple.94d62011.svg",
+    "static/media/gamepad.c35f956b.svg": "/last-life/static/media/gamepad.c35f956b.svg",
+    "static/media/logo.80a7e755.svg": "/last-life/static/media/logo.80a7e755.svg",
+    "static/media/nintendo.c6635301.svg": "/last-life/static/media/nintendo.c6635301.svg",
+    "static/media/pexels-photo-4842496.b0611ac6.jpeg": "/last-life/static/media/pexels-photo-4842496.b0611ac6.jpeg",
+    "static/media/playstation.60eb8933.svg": "/last-life/static/media/playstation.60eb8933.svg",
+    "static/media/steam.d7b8819f.svg": "/last-life/static/media/steam.d7b8819f.svg",
+    "static/media/xbox.5c20be2a.svg": "/last-life/static/media/xbox.5c20be2a.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3dd71376.js",
+    "static/js/2.08ea42e6.chunk.js",
+    "static/js/main.719b46f8.chunk.js"
+  ]
+}
