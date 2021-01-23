@@ -62,6 +62,10 @@ const GlobalStyles = createGlobalStyle`
     font-family: "Montserrat", sans-serif;
   }
 
+  .extra-small-cards {
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)) !important;
+  }
+
   .small-cards {
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }

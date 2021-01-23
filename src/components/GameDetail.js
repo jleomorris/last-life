@@ -319,7 +319,8 @@ const Stats = styled(motion.div)`
       display: inline-block;
       margin: 0.5rem 0.5rem 0.5rem 0rem;
       border: 1px solid white;
-      padding: 0.5rem 1rem;
+      padding: 0.25rem 0.5rem;
+      font-size: 1rem;
     }
 
     .star-container {
@@ -401,6 +402,10 @@ const MetacriticScore = styled(motion.div)`
 
     p {
       font-size: 4rem;
+
+      @media (max-width: 800px) {
+        font-size: 2rem;
+      }
     }
   }
 `;

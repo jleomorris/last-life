@@ -4,6 +4,7 @@ import GameDetail from "../components/GameDetail";
 import { useDispatch, useSelector } from "react-redux";
 import { loadGames } from "../actions/gamesAction";
 import {
+  setExtraSmallCards,
   setSmallCards,
   setMediumCards,
   setLargeCards,
@@ -33,9 +34,12 @@ const Home = () => {
     (state) => state.games
   );
   // Card size variables
-  const { isSmallSelected, isMediumSelected, isLargeSelected } = useSelector(
-    (state) => state.cardSizes
-  );
+  const {
+    isExtraSmallSelected,
+    isSmallSelected,
+    isMediumSelected,
+    isLargeSelected,
+  } = useSelector((state) => state.cardSizes);
 
   const inputHandler = (e) => {
     setTextInput(e.target.value);
@@ -56,6 +60,7 @@ const Home = () => {
   };
 
   const cardSizeHandler = (size) => {
+    if (size === "extra-small") dispatch(setExtraSmallCards());
     if (size === "small") dispatch(setSmallCards());
     if (size === "medium") dispatch(setMediumCards());
     if (size === "large") dispatch(setLargeCards());
@@ -66,7 +71,9 @@ const Home = () => {
     dispatch(loadGames(30));
 
     // Set card size based on window size
-    if (window.innerWidth < 950) {
+    if (window.innerWidth < 500) {
+      dispatch(setExtraSmallCards());
+    } else if (window.innerWidth < 950) {
       dispatch(setSmallCards());
     } else if (window.innerWidth < 1200) {
       dispatch(setMediumCards());
@@ -76,7 +83,7 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <>
+    <StyledHome>
       <Banner variants={container} initial="hidden" animate="show">
         <img className="banner-image" src={bannerImage} alt="banner-image" />
         <div className="title-logo-search-container">
@@ -142,6 +149,14 @@ const Home = () => {
           <div className="card-toggle-container">
             <h3>Card size</h3>
             <button
+              onClick={() => cardSizeHandler("extra-small")}
+              className={`${
+                isExtraSmallSelected ? "card-highlighted" : ""
+              } extra-small-card-button`}
+            >
+              XS
+            </button>
+            <button
               onClick={() => cardSizeHandler("small")}
               className={`${
                 isSmallSelected ? "card-highlighted" : ""
@@ -199,9 +214,11 @@ const Home = () => {
           )}
           <h2>Popular games</h2>
           <Games
-            className={`${isSmallSelected ? "small-cards" : ""}${
-              isMediumSelected ? "medium-cards" : ""
-            }${isLargeSelected ? "large-cards" : ""}`}
+            className={`${isExtraSmallSelected ? "extra-small-cards" : ""}${
+              isSmallSelected ? "small-cards" : ""
+            }${isMediumSelected ? "medium-cards" : ""}${
+              isLargeSelected ? "large-cards" : ""
+            }`}
           >
             {popular.map((game) => (
               <Game
@@ -250,13 +267,21 @@ const Home = () => {
           </Games>
         </AnimateSharedLayout>
       </GameList>
-    </>
+    </StyledHome>
   );
 };
 
 // Styled components
+const StyledHome = styled(motion.div)`
+  overflow-x: hidden;
+`;
+
 const GameList = styled(motion.div)`
   padding: 0rem 5rem;
+
+  @media (max-width: 500px) {
+    padding: 0rem 2rem;
+  }
 
   h2 {
     padding: 2rem 0rem;
@@ -288,32 +313,8 @@ const Banner = styled(motion.div)`
 
   @media (max-width: 800px) {
     min-height: 50vh;
+    padding: 3rem;
   }
-
-  /* .small-card-button {
-    @media (max-width: 800px) {
-      background: #bfbfeb;
-    }
-  }
-
-  .medium-card-button {
-    @media (max-width: 950px) {
-      background: #bfbfeb;
-    }
-  }
-
-  .large-card-button {
-    @media (max-width: 950px) {
-      display: none;
-    }
-  }
-
-  .medium-card-button,
-  .large-card-button {
-    @media (max-width: 800px) {
-      display: none;
-    }
-  } */
 
   .title-logo-search-container {
     display: flex;
@@ -332,10 +333,25 @@ const Banner = styled(motion.div)`
         margin-right: 1rem;
         cursor: pointer;
       }
+
+      @media (max-width: 800px) {
+        h1 {
+          font-size: 3rem;
+        }
+      }
     }
 
     .search-container {
       width: 100%;
+
+      @media (max-width: 500px) {
+        margin-left: 0rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
       input {
         width: 30%;
         font-size: 1.5rem;
@@ -347,12 +363,17 @@ const Banner = styled(motion.div)`
         margin-left: 4rem;
         border-radius: 2rem 0rem 0rem 2rem;
 
-        @media (max-width: 1200px) {
+        @media (max-width: 500px) {
+          margin-left: 0rem;
+          width: 100%;
+          border-radius: 2rem;
+        }
+
+        @media (min-width: 1200px) {
           width: 55%;
         }
       }
 
-      /* /* // not working */
       button {
         font-size: 1.5rem;
         border: none;
@@ -365,6 +386,11 @@ const Banner = styled(motion.div)`
         outline: none;
         text-transform: none;
         outline: none;
+
+        @media (max-width: 500px) {
+          margin-top: 1rem;
+          border-radius: 2rem;
+        }
       }
     }
   }
@@ -421,9 +447,18 @@ const Banner = styled(motion.div)`
     }
 
     .card-toggle-container {
+      .extra-small-card-button {
+        @media (min-width: 500px) {
+          display: none;
+        }
+      }
+
       .small-card-button {
         @media (max-width: 800px) {
           background: #bfbfeb;
+        }
+        @media (max-width: 500px) {
+          display: none;
         }
       }
 
