@@ -195,9 +195,11 @@ const Home = () => {
             <>
               <h2>Searched game results</h2>
               <Games
-                className={`${isSmallSelected ? "small-cards" : ""}${
-                  isMediumSelected ? "medium-cards" : ""
-                }${isLargeSelected ? "large-cards" : ""}`}
+                className={`${isExtraSmallSelected ? "extra-small-cards" : ""}${
+                  isSmallSelected ? "small-cards" : ""
+                }${isMediumSelected ? "medium-cards" : ""}${
+                  isLargeSelected ? "large-cards" : ""
+                }`}
               >
                 {searched.map((game) => (
                   <Game
@@ -233,9 +235,11 @@ const Home = () => {
           </Games>
           <h2>New games</h2>
           <Games
-            className={`${isSmallSelected ? "small-cards" : ""}${
-              isMediumSelected ? "medium-cards" : ""
-            }${isLargeSelected ? "large-cards" : ""}`}
+            className={`${isExtraSmallSelected ? "extra-small-cards" : ""}${
+              isSmallSelected ? "small-cards" : ""
+            }${isMediumSelected ? "medium-cards" : ""}${
+              isLargeSelected ? "large-cards" : ""
+            }`}
           >
             {newGames.map((game) => (
               <Game
@@ -250,9 +254,11 @@ const Home = () => {
           </Games>
           <h2>Upcoming games</h2>
           <Games
-            className={`${isSmallSelected ? "small-cards" : ""}${
-              isMediumSelected ? "medium-cards" : ""
-            }${isLargeSelected ? "large-cards" : ""}`}
+            className={`${isExtraSmallSelected ? "extra-small-cards" : ""}${
+              isSmallSelected ? "small-cards" : ""
+            }${isMediumSelected ? "medium-cards" : ""}${
+              isLargeSelected ? "large-cards" : ""
+            }`}
           >
             {upcoming.map((game) => (
               <Game
@@ -370,7 +376,7 @@ const Banner = styled(motion.div)`
         }
 
         @media (min-width: 1200px) {
-          width: 55%;
+          width: 30%;
         }
       }
 

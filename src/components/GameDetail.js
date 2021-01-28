@@ -378,6 +378,9 @@ const MetacriticScore = styled(motion.div)`
     top: 0;
     right: 20px;
   }
+  @media (max-width: 480px) {
+    right: 10px;
+  }
 
   .metacritic-score {
     /* position: absolute;
@@ -387,13 +390,23 @@ const MetacriticScore = styled(motion.div)`
     height: fit-content;
     border: 4px solid #ffcc34;
     padding: 0rem 1.5rem;
+    padding: 0rem 1.5rem;
     border-radius: 1rem;
     margin: 1.5rem 0rem;
+
+    @media (max-width: 480px) {
+      padding: 0rem 1rem;
+      margin: 1 0rem;
+    }
 
     p {
       color: white;
       font-weight: 900;
       font-size: 4rem;
+
+      @media (max-width: 480px) {
+        font-size: 2rem;
+      }
     }
   }
 
