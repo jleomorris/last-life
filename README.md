@@ -39,3 +39,4 @@
 Please contact me at https://www.github.com/jleomorris for support.
 
 ## License
+No license - commercial or private use is not allowed
