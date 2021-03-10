@@ -39,4 +39,3 @@
 Please contact me at https://www.github.com/jleomorris for support.
 
 ## License
-MIT
