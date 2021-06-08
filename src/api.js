@@ -1,5 +1,6 @@
 // Base URL
-const base_url = "https://api.rawg.io/api/";
+const base_url = 'https://api.rawg.io/api/';
+const API_KEY = process.env.REACT_APP_RAWG_API_KEY;
 
 // Calculate Month
 const getCurrentMonth = () => {
@@ -37,18 +38,20 @@ const popular_games = `games?dates=${lastYear},${currentDate}&ordering=-rating&p
 const new_games = `games?dates=${lastYear},${currentDate}&ordering=-released&page_size=`;
 
 export const upcomingGamesUrl = (number) =>
-  `${base_url}${upcoming_games}${number}`;
+  `${base_url}${upcoming_games}${number}&key=${API_KEY}`;
 export const popularGamesUrl = (number) =>
-  `${base_url}${popular_games}${number}`;
-export const newGamesUrl = (number) => `${base_url}${new_games}${number}`;
+  `${base_url}${popular_games}${number}&key=${API_KEY}`;
+export const newGamesUrl = (number) =>
+  `${base_url}${new_games}${number}&key=${API_KEY}`;
 
 // Game details
-export const gameDetailsUrl = (game_id) => `${base_url}games/${game_id}`;
+export const gameDetailsUrl = (game_id) =>
+  `${base_url}games/${game_id}?key=${API_KEY}`;
 
 // Game screenshots
 export const gameScreenshotUrl = (game_id) =>
-  `${base_url}games/${game_id}/screenshots`;
+  `${base_url}games/${game_id}/screenshots?key=${API_KEY}`;
 
 // Searched game
 export const searchGameUrl = (game_name, number) =>
-  `${base_url}games?search=${game_name}&page_size=${number}`;
+  `${base_url}games?search=${game_name}&page_size=${number}&key=${API_KEY}`;
