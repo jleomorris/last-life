@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.js": "/last-life/static/js/main.b52ffafe.chunk.js",
-    "main.js.map": "/last-life/static/js/main.b52ffafe.chunk.js.map",
+    "main.js": "/last-life/static/js/main.24dab84f.chunk.js",
+    "main.js.map": "/last-life/static/js/main.24dab84f.chunk.js.map",
     "runtime-main.js": "/last-life/static/js/runtime-main.3dd71376.js",
     "runtime-main.js.map": "/last-life/static/js/runtime-main.3dd71376.js.map",
-    "static/js/2.d8385eda.chunk.js": "/last-life/static/js/2.d8385eda.chunk.js",
-    "static/js/2.d8385eda.chunk.js.map": "/last-life/static/js/2.d8385eda.chunk.js.map",
+    "static/js/2.c383c48b.chunk.js": "/last-life/static/js/2.c383c48b.chunk.js",
+    "static/js/2.c383c48b.chunk.js.map": "/last-life/static/js/2.c383c48b.chunk.js.map",
     "static/js/3.c9f82aa3.chunk.js": "/last-life/static/js/3.c9f82aa3.chunk.js",
     "static/js/3.c9f82aa3.chunk.js.map": "/last-life/static/js/3.c9f82aa3.chunk.js.map",
     "index.html": "/last-life/index.html",
-    "static/js/2.d8385eda.chunk.js.LICENSE.txt": "/last-life/static/js/2.d8385eda.chunk.js.LICENSE.txt",
+    "static/js/2.c383c48b.chunk.js.LICENSE.txt": "/last-life/static/js/2.c383c48b.chunk.js.LICENSE.txt",
     "static/media/apple.94d62011.svg": "/last-life/static/media/apple.94d62011.svg",
     "static/media/gamepad.c35f956b.svg": "/last-life/static/media/gamepad.c35f956b.svg",
     "static/media/logo.80a7e755.svg": "/last-life/static/media/logo.80a7e755.svg",
@@ -21,7 +21,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.3dd71376.js",
-    "static/js/2.d8385eda.chunk.js",
-    "static/js/main.b52ffafe.chunk.js"
+    "static/js/2.c383c48b.chunk.js",
+    "static/js/main.24dab84f.chunk.js"
   ]
 }
